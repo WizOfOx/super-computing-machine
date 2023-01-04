@@ -6,7 +6,7 @@ FROM mathworks/matlab:latest
 COPY --from=ipopt-builder /build /build
 
 RUN --mount=type=secret,id=matlab_license \
-    ls -lAR /run/secrets
+    cat /run/secrets/matlab_license
 
 ENV MLM_LICENSE_FILE=/run/secrets/matlab_license
 
