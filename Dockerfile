@@ -14,8 +14,7 @@ USER root
 RUN --mount=type=secret,id=matlab_license \
     file /run/secrets/matlab_license && \
     ls -lA /run/secrets && \
-    cp /run/secrets/matlab_license /home/matlab/license.lic && \
-    cat /home/matlab/license.lic
+    cp /run/secrets/matlab_license /home/matlab/license.lic 
 
 RUN apt update && \
     apt install -y  git \
