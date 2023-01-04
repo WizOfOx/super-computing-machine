@@ -26,8 +26,10 @@ jobs:
       with:
         push: false
         tags: |
-          ${{ secrets.DOCKER_USER }}/ipoptmex:latest
-          ${{ secrets.DOCKER_USER }}/ipoptmex:${{ github.sha }}
+            ipoptmex:latest
         secrets: |
             "matlab_license=${{ secrets.MATLAB_LICENSE }}"
+    - name: Build mex
+      run: |
+        docker run --rm --mac-address=${{ secrets.MATLAB_MAC }} --shm-size=512M -v $GITHUB_WORKSPACE:/repo -t ipoptmex:latest -batch "cd /repo;make"
           
