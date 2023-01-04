@@ -6,9 +6,10 @@ FROM mathworks/matlab:latest
 COPY --from=ipopt-builder /build /build
 
 RUN --mount=type=secret,id=matlab_license \
-    cat /run/secrets/matlab_license
+    cp /run/secrets/matlab_license /home/matlab/license.lic \
+    cat /home/matlab/license.lic
 
-ENV MLM_LICENSE_FILE=/run/secrets/matlab_license
+ENV MLM_LICENSE_FILE=/home/matlab/license.lic
 
 ENV PKG_CONFIG_PATH=/build/lib/pkgconfig
 
