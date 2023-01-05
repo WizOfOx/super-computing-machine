@@ -5,16 +5,9 @@ FROM mathworks/matlab:latest
 
 COPY --from=ipopt-builder /build /build
 
-# ENV MLM_LICENSE_FILE=/home/matlab/license.lic
-
 ENV PKG_CONFIG_PATH=/build/lib/pkgconfig
 
 USER root
-
-# RUN --mount=type=secret,id=matlab_license \
-#     file /run/secrets/matlab_license && \
-#     ls -lA /run/secrets && \
-#     cp /run/secrets/matlab_license /home/matlab/license.lic 
 
 RUN apt update && \
     apt install -y  git \
@@ -27,9 +20,12 @@ RUN apt update && \
 
 USER matlab
 
-COPY --chown=matlab . /workspace
+COPY --chown=matlab . /home/matlab/workspace
 
-WORKDIR /workspace
+WORKDIR /home/matlab/workspace
 
-RUN chmod +x ./make.sh 
-RUN ./make.sh
+RUN chmod +x ./make.sh && \ 
+    ./make.sh && \
+    rm -rf /home/matlab/workspace
+
+WORKDIR /home/matlab

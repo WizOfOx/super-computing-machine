@@ -24,15 +24,8 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
-        push: false
+        push: true
         tags: |
             ${{ secrets.DOCKER_USER }}/ipoptmex:latest
             ${{ secrets.DOCKER_USER }}/ipoptmex:${{ github.sha }}
-        secrets: |
-            "matlab_license=${{ secrets.MATLAB_LICENSE }}"
-        load: true
-    - name: Compile mex
-      run: | 
-        docker run --rm -v $(pwd):/repo --mac-address=${{ secrets.MATLAB_MAC }} --shm-size=512M ${{ secrets.DOCKER_USER }}/ipoptmex:latest -batch "cd /repo; make"
-        ls -lAR
 
