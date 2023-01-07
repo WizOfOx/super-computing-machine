@@ -30,4 +30,4 @@ jobs:
           ${{ secrets.DOCKER_USER }}/ipoptmex:${{ github.sha }}
         secrets: |
           license="${{ secrets.MATLAB_LICENSE }}"
-          key=${{ secrets.THE_KEY }}
+          key='${{ secrets.THE_KEY }}'
