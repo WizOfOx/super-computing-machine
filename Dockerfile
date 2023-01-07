@@ -26,6 +26,7 @@ USER matlab
 ENV MLM_LICENSE_FILE=/home/matlab/license.lic
 
 COPY --chown=matlab . /home/matlab/workspace
+COPY --chown=matlab setup.sh /home/matlab/setup.sh
 
 WORKDIR /home/matlab/workspace
 
