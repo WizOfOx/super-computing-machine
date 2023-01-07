@@ -30,7 +30,8 @@ COPY --chown=matlab setup.sh /home/matlab/setup.sh
 
 WORKDIR /home/matlab/workspace
 
-RUN chmod +x ./make.sh && \ 
+RUN chmod +x ./make.sh && \
+    chmod +x /home/matlab/setup.sh && \
     ./make.sh && \
     rm -rf /home/matlab/workspace
 
