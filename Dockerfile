@@ -22,6 +22,7 @@ COPY --chown=matlab license.lic.gpg /home/matlab/license.lic.gpg
 
 USER matlab
 
+# For use downstream
 ENV MLM_LICENSE_FILE=/home/matlab/license.lic
 
 COPY --chown=matlab . /home/matlab/workspace
