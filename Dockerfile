@@ -18,7 +18,14 @@ RUN apt update && \
                     metis \
                     libopenblas-dev
 
+RUN --mount=type=secret,id=license \
+    --mount=type=secret,id=key \
+    openssl enc -desx -pass file:/run/secrets/key -in /run/secrets/license -out /home/matlab/license && \
+    chown matlab:matlab /home/matlab/license
+
 USER matlab
+
+ENV MLM_LICENSE_FILE=/home/matlab/license.lic
 
 COPY --chown=matlab . /home/matlab/workspace
 
