@@ -28,6 +28,5 @@ jobs:
         tags: |
           ${{ secrets.DOCKER_USER }}/ipoptmex:latest
           ${{ secrets.DOCKER_USER }}/ipoptmex:${{ github.sha }}
-        secrets: |
-          license="${{ secrets.MATLAB_LICENSE }}"
-          key="${{ secrets.THE_KEY }}"
+
+
