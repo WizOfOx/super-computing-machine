@@ -1,0 +1,17 @@
+{
+    "name": "End to end",
+    "build" : {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "MATLAB_VER": "latest"
+        },
+        "context": ".."
+    },
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "workspaceFolder": "/workspace",
+    "runArgs": [
+        "--entrypoint=bash",
+        "--shm-size=512m"
+    ],
+    "initializeCommand": "ls " 
+}
