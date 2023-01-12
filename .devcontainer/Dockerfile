@@ -54,7 +54,7 @@ RUN ./configure --prefix=/build --disable-linear-solver-loader --disable-sipopt 
 
 FROM mathworks/matlab:${MATLAB_VER} as mex-builder
 
-COPY --from=debian-builder /build /build
+COPY --from=debian-builder --chown=matlab /build /build
 
 USER root
 
@@ -65,19 +65,24 @@ RUN apt update && \
 
 ENV PKG_CONFIG_PATH=/build/lib/pkgconfig
 
-COPY . /mex-src
+COPY --chown=matlab . /mex-src
+
+USER matlab
 
 RUN MATLABVERSION=$(stat /usr/local/bin/matlab | grep -Eo "R[0-9]{4}[ab]") && \
     MATLABROOT=/opt/matlab/$MATLABVERSION && \
     $MATLABROOT/bin/mex -v -output ipopt \
         -outdir /build \
         -R2018a $(pkg-config --cflags ipopt) \
-        $(pkg-config --libs ipopt) /mex-src/main.cpp && \
-    chown 777 matlab:matlab /build/ipopt.mexa64
+        $(pkg-config --libs ipopt) /mex-src/main.cpp 
 
 FROM mathworks/matlab:${MATLAB_VER} as mex-runner
 
-COPY --from=mex-builder /build/ipopt.mexa64 /build/ipopt.mexa64
+COPY --from=mex-builder /build/ipopt.mexa64 /home/matlab/Documents/MATLAB/ipopt.mexa64
+COPY --chown=matlab license.lic.gpg /home/matlab/license.lic.gpg
+ENV MLM_LICENSE_FILE=/home/matlab/license.lic
 
+USER root
 RUN apt update && \
     apt install -y build-essential git
+USER matlab
