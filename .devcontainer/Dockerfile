@@ -62,18 +62,18 @@ RUN apt update && \
     apt install -y build-essential gfortran \
     libopenblas-dev metis pkg-config 
 
-USER matlab
 
 ENV PKG_CONFIG_PATH=/build/lib/pkgconfig
 
-COPY --chown=matlab . /mex-src
+COPY . /mex-src
 
 RUN MATLABVERSION=$(stat /usr/local/bin/matlab | grep -Eo "R[0-9]{4}[ab]") && \
     MATLABROOT=/opt/matlab/$MATLABVERSION && \
     $MATLABROOT/bin/mex -v -output ipopt \
         -outdir /build \
         -R2018a $(pkg-config --cflags ipopt) \
-        $(pkg-config --libs ipopt) /mex-src/main.cpp
+        $(pkg-config --libs ipopt) /mex-src/main.cpp && \
+    chown 777 matlab:matlab /build/ipopt.mexa64
 
 FROM mathworks/matlab:${MATLAB_VER} as mex-runner
 
