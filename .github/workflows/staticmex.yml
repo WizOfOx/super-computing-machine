@@ -28,7 +28,7 @@ jobs:
         tags: |
           ${{ secrets.DOCKER_USER }}/ipoptmexstatic:latest
           ${{ secrets.DOCKER_USER }}/ipoptmexstatic:${{ github.sha }}
-        file: .devcontainer/Dockerfile
-        context: ./
+        file: $GITHUB_WORKSPACE/.devcontainer/Dockerfile
+        context: $GITHUB_WORKSPACE
 
 
