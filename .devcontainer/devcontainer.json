@@ -10,8 +10,26 @@
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
     "workspaceFolder": "/workspace",
     "runArgs": [
-        "--entrypoint=bash",
-        "--shm-size=512m"
+        "--mac-address=${localEnv:MATLAB_MAC}",
+        "--shm-size=512m",
+        "--entrypoint=/bin/bash"
     ],
-    "initializeCommand": "ls " 
+    "hostRequirements": {
+        "memory": "8gb"
+    },
+    "remoteEnv": {
+        "THE_SECRET": "${localEnv:THE_SECRET}"
+    },
+    "onCreateCommand": "/home/matlab/setup.sh $THE_SECRET",
+    "postCreateCommand": "/bin/run.sh -shell",
+    "forwardPorts": [
+        8888
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bat67.matlab-extension-pack"
+            ]
+        }
+    }
 }
