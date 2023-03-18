@@ -7,11 +7,20 @@ on:
   pull_request:
     branches:
       - main
+  schedule:
+    - cron: "23 13 3 * *"
 
 jobs:
   builder:
     runs-on: ubuntu-latest
     steps:
+    - name: Docker Image Update Checker
+      id: baseupdatecheck
+      uses: lucacome/docker-image-update-checker@v1.1.0
+      with:
+        base-image: mathworks/matlab:latest
+        image: ${{ secrets.DOCKER_USER }}/ipoptmexstatic 
+      if: steps.baseupdatecheck.outputs.needs-updating == 'true'
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
