@@ -23,9 +23,9 @@ jobs:
         base-image: mathworks/matlab:latest
         image: ${{ secrets.DOCKER_USER }}/ipoptmexstatic 
     - run: echo 'Hello'
-      if: github.event.name == 'schedule' || steps.baseupdatecheck.outputs.needs-updating == 'true'
+      if: ${{ github.event.name == 'schedule' || steps.baseupdatecheck.outputs.needs-updating == 'true' }}
     - run: echo 'Push'
-      if: github.event.name == 'push' || steps.baseupdatecheck.outputs.needs-updating == 'true'
+      if: ${{ github.event.name == 'push' || steps.baseupdatecheck.outputs.needs-updating == 'true' }}
 
     # - name: Set up QEMU
     #   uses: docker/setup-qemu-action@v2
