@@ -1,14 +1,14 @@
 name: Ipopt-Mex
 
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
-#   schedule:
-#     - cron: "23 13 3 * *"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "23 13 3 * *"
 
 jobs:
   builder:
@@ -20,7 +20,6 @@ jobs:
       with:
         base-image: mathworks/matlab:latest
         image: ${{ secrets.DOCKER_USER }}/ipoptmexstatic 
-      if: steps.baseupdatecheck.outputs.needs-updating == 'true'
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
@@ -37,5 +36,6 @@ jobs:
         tags: |
           ${{ secrets.DOCKER_USER }}/ipoptmex:latest
           ${{ secrets.DOCKER_USER }}/ipoptmex:${{ github.sha }}
+      if: contains(fromJSON('["push", "pull_request"]'), github.event_name) || steps.baseupdatecheck.outputs.needs-updating == 'true' 
 
 
