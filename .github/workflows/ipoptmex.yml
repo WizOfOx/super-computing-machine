@@ -1,14 +1,14 @@
 name: Ipopt-Mex
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  schedule:
-    - cron: "23 13 3 * *"
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+#   schedule:
+#     - cron: "23 13 3 * *"
 
 jobs:
   builder:
