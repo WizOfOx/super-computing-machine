@@ -31,11 +31,11 @@ clear;
     options.ipopt.linear_solver                     = "ma27";
     options.ipopt.output_file                       = "ipopt.out";
     options.ipopt.file_print_level                  = 5;
-    options.ipopt.print_level                       = 5;
-    options.ipopt.hessian_approximation             = "exact";%"limited-memory";
-    options.ipopt.limited_memory_update_type        = "damped-bfgs";
-    options.ipopt.limited_memory_damping_threshold  = 0.2;
-%     options.ipopt.print_options_documentation       = "yes";
+    options.ipopt.print_level                       = 0;
+    options.ipopt.hessian_approximation             = "limited-memory";%"exact";%
+    % options.ipopt.limited_memory_update_type        = "damped-bfgs";
+    % options.ipopt.limited_memory_damping_threshold  = 0.2;
+    options.ipopt.print_options_documentation       = "yes";
     options.ipopt.dependency_detector               = "mumps";
     options.ipopt.print_user_options                = "yes";
 %     options.debug = 1;
@@ -51,6 +51,8 @@ clear;
     funcs.intermediate      = @intermediate;
     % Run IPOPT.
     [x, info] = ipopt(x0, funcs, options);
+
+    disp(info)
   
   % ----------------------------------------------------------------------
   function g = gradient (x)
