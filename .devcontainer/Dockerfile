@@ -79,7 +79,7 @@ RUN MATLABVERSION=$(stat /usr/local/bin/matlab | grep -Eo "R[0-9]{4}[ab]") && \
 FROM mathworks/matlab:${MATLAB_VER} as mex-runner
 
 COPY --from=mex-builder /build/ipopt.mexa64 /home/matlab/Documents/MATLAB/ipopt.mexa64
-COPY --chown=matlab license.lic.gpg /home/matlab/license.lic.gpg
+COPY --chown=matlab ${MATLAB_VER}.lic.gpg /home/matlab/license.lic.gpg
 COPY --chown=matlab setup.sh /home/matlab/setup.sh
 # ENV MLM_LICENSE_FILE=/home/matlab/license.lic
 
