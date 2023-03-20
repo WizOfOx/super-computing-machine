@@ -18,7 +18,7 @@ RUN apt update && \
                     metis \
                     libopenblas-dev
 
-COPY --chown=matlab license.lic.gpg /home/matlab/license.lic.gpg
+COPY --chown=matlab latest.lic.gpg /home/matlab/license.lic.gpg
 
 USER matlab
 
