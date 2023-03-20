@@ -24,4 +24,4 @@ jobs:
     - name: Run Test
       run: |
         docker pull ${{ secrets.DOCKER_USER }}/ipoptmexstatic:latest
-        docker run --rm --mac-address=${{ secrets.MATLAB_MAC }} --shm-size=512m --network=bridge -e MLM_LICENSE_FILE=/home/matlab/license.lic -v $(pwd):/workspace --entrypoint=/workspace/testrunner.sh -e THE_SECRET=$THE_SECRET -t ${{ secrets.DOCKER_USER }}/ipoptmexstatic:latest
+        docker run --rm --mac-address=${{ secrets.MATLAB_MAC }} --shm-size=512m --network=bridge -e MLM_LICENSE_FILE=/home/matlab/license.lic -v $(pwd):/workspace --entrypoint=/workspace/testrunner.sh -e THE_SECRET=${{ secrets.THE_SECRET }} -t ${{ secrets.DOCKER_USER }}/ipoptmexstatic:latest
