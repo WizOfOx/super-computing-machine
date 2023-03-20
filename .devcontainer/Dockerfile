@@ -78,6 +78,7 @@ RUN MATLABVERSION=$(stat /usr/local/bin/matlab | grep -Eo "R[0-9]{4}[ab]") && \
         $(pkg-config --libs ipopt) /mex-src/main.cpp 
 
 FROM mathworks/matlab:${MATLAB_VER} as mex-runner
+ARG MATLAB_VER="latest"
 
 COPY --from=mex-builder /build/ipopt.mexa64 /home/matlab/Documents/MATLAB/ipopt.mexa64
 COPY --chown=matlab ${MATLAB_VER}.lic.gpg /home/matlab/license.lic.gpg
