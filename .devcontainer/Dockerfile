@@ -53,6 +53,7 @@ RUN ./configure --prefix=/build --disable-linear-solver-loader --disable-sipopt 
 
 
 FROM mathworks/matlab:${MATLAB_VER} as mex-builder
+ARG MATLAB_VER
 
 COPY --from=debian-builder --chown=matlab /build /build
 
