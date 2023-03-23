@@ -8,4 +8,3 @@ runner.addPlugin(p);
 results = runner.run(suite);
 table(results)
 
-dir(getenv('HOME'))
