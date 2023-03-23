@@ -83,10 +83,14 @@ ARG MATLAB_VER="latest"
 COPY --from=mex-builder /build/ipopt.mexa64 /home/matlab/Documents/MATLAB/ipopt.mexa64
 COPY --chown=matlab ${MATLAB_VER}.lic.gpg /home/matlab/license.lic.gpg
 COPY --chown=matlab setup.sh /home/matlab/setup.sh
-# ENV MLM_LICENSE_FILE=/home/matlab/license.lic
+COPY --chown=matlab batchrun.sh /home/matlab/batchrun.sh
+
+ENV MLM_LICENSE_FILE=/home/matlab/license.lic
 
 USER root
 RUN apt update && \
     apt install -y build-essential git && \
     chmod +x /home/matlab/setup.sh
 USER matlab
+
+ENTRYPOINT [ "/home/matlab/batchrun.m" ]
