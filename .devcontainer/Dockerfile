@@ -93,4 +93,4 @@ RUN apt update && \
     chmod +x /home/matlab/setup.sh
 USER matlab
 
-ENTRYPOINT [ "/home/matlab/batchrun.m" ]
+ENTRYPOINT [ "/home/matlab/batchrun.sh" ]
