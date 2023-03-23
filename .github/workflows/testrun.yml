@@ -5,6 +5,7 @@ on:
     workflows: ["Static-Mex"]
     types:
       - completed
+  workflow_dispatch:
 
 jobs:
   tester:

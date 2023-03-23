@@ -1,14 +1,14 @@
 name: Static-Mex
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  schedule:
-    - cron: "0 0 * * *"
+on: workflow_dispatch
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
+  # schedule:
+  #   - cron: "0 0 * * *"
 
 jobs:
   builder:
