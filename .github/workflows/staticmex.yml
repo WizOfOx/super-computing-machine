@@ -37,7 +37,7 @@ jobs:
           ${{ secrets.DOCKER_USER }}/ipoptmexstatic:latest
           ${{ secrets.DOCKER_USER }}/ipoptmexstatic:${{ github.sha }}
         file: /.devcontainer/Dockerfile
-      if: contains(fromJSON('["push", "pull_request"]'), github.event_name) || steps.baseupdatecheck.outputs.needs-updating == 'true' 
+      if: contains(fromJSON('["push", "pull_request","workflow_dispatch"]'), github.event_name) || steps.baseupdatecheck.outputs.needs-updating == 'true' 
 
 
 
