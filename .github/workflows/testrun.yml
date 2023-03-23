@@ -28,7 +28,7 @@ jobs:
       id: testrun
       run: |
         docker pull ${{ secrets.DOCKER_USER }}/ipoptmexstatic:latest
-        docker run --rm --mac-address=${{ secrets.MATLAB_MAC }} --shm-size=512m --network=bridge -e MLM_LICENSE_FILE=/home/matlab/license.lic -v $(pwd)/test:/workspace --entrypoint=/workspace/testrunner.sh -e THE_SECRET=${{ secrets.THE_SECRET }} -v $GITHUB_OUTPUT:/output -t ${{ secrets.DOCKER_USER }}/ipoptmexstatic:latest
+        docker run --rm --mac-address=${{ secrets.MATLAB_MAC }} --shm-size=512m --network=bridge -v $(pwd)/test:/workspace  -t ${{ secrets.DOCKER_USER }}/ipoptmexstatic:latest ${{ secrets.THE_SECRET }} "cd('/workspace');run('tester.m')"
     - name: Publish Test Report
       uses: mikepenz/action-junit-report@v3
       if: success() || failure() # always run even if the previous step fails
