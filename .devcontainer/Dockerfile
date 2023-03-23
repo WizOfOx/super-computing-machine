@@ -90,7 +90,8 @@ ENV MLM_LICENSE_FILE=/home/matlab/license.lic
 USER root
 RUN apt update && \
     apt install -y build-essential git && \
-    chmod +x /home/matlab/setup.sh
+    chmod +x /home/matlab/setup.sh && \
+    chmod +x /home/matlab/batchrun.sh
 USER matlab
 
 ENTRYPOINT [ "/home/matlab/batchrun.sh" ]
